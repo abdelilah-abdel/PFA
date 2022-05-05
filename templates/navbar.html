@@ -1,0 +1,81 @@
+<head>
+  <style>
+    .d-flex{
+      margin: auto;
+    }
+    a{
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Logo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/quizzes">All quizzes</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              categories
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for c in category %}
+
+              <div>          
+                <a href="{% url 'index' %}?q={{c.name}}"> {{c.name}} </a>
+              </div>
+
+          {%endfor%}
+              <li><hr class="dropdown-divider"></li>
+              <li><a href="/categories/"> All categories</a> </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex"  method="GET" action="{% url 'index' %}">
+          <input class="form-control me-2" type="search" name="q" placeholder="Search for categories or quizzes" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> 
+        
+        
+        {% if request.user.is_authenticated %}
+        
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2" >
+            <a href="{% url 'profile' user.id %}" class="link-dark" style="color:white" >profile</a>
+            
+          </button>
+          <button type="button" class="btn btn-warning">
+            <a href="{% url 'logout' %}" class="link-primary" style="color:white" >logout</a>
+          </button>
+        </div>
+
+        {% else %}
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2" >
+            <a href="{% url 'login' %}" class="link-dark" style="color:white" >Login</a>
+            
+          </button>
+          <button type="button" class="btn btn-success">
+            <a href="{% url 'register' %}" class="link-primary" style="color:white" >Sign-up</a>
+          </button>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </nav>
+</aside>
+
+
+  <!-- ----------------------------------------------------------------------- -->

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1> 
+        <u> All categories</u>
+    </h1>
+    
+<div>
+    <div>
+        {% for c in category %}
+            <div>
+                <h5>
+                    {{c.id}} -- <a href="{% url 'index' %}?q={{c.name}}"> {{c.name}} </a>
+                </h5>
+            </div>
+
+
+        {%endfor%}
+    </div>
+</div>
+
+
+
+
+{% endblock %}
