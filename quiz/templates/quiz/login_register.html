@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .form-signin{
+        padding: 40%;
+        padding-top: 7%;
+      }
+      .form-floating{
+        margin: auto;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+
+{% if page == 'login' %}
+
+<!-- Login -->
+<div name="Login"></div>
+
+  <main class="form-signin">
+
+      <form method="POST" action="">
+      {% csrf_token %}
+        <img class="mb-4" src="https://cdn.discordapp.com/attachments/756290553724928051/970833270990307358/quizzybox.png" alt="" width="100" height="100">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+        <div class="form-floating">
+          <input type="text" name="username" class="form-control"  id="floatingInput" placeholder="@user">
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+    
+        <button class="w-100 btn btn-lg btn-success" type="submit" value="login">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">haven't signed up yet ?</p>
+        <a href="{% url 'register' %}">Sign up</a>
+      </form>
+    </main>
+</div>    
+    
+
+{% else %}
+
+<!-- Registration -->
+<div name="Registration">
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+       
+        <input type="submit" value="Register" />
+    </form>
+    <p>already signed up ?</p>
+    <a href="{% url 'login' %}">Log in</a>
+</div>
+{% endif %}
+
+
+{% endblock %}
+
+

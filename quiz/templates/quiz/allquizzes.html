@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h1 style="text-align: center;"> All quizzes</h1>
+                {% for q in quiz %}
+                
+                    <div>
+                        <h5>
+                                <a href="/quiz/{{q.id}}"> {{q.name}} </a>
+                        </h5>
+                    </div>
+                     
+               {%endfor%}
+
+{% endblock %}

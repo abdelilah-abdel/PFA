@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>{{category.name}}</h1>
+    
+<div>
+    <div>
+        {% for q in quiz %}
+            <div>
+                <h5>
+                    {% if category.id == q.category.id %} 
+                    
+                        {{q.id}} -- <a href=" {% url 'quiz' q.id %} "> {{q.name}} </a>
+                    {% endif %}
+
+                </h5>
+            </div>
+
+
+        {%endfor%}
+    </div>
+
+
+
+
+
+
+</div>
+{% endblock %}
