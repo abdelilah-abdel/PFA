@@ -161,7 +161,7 @@ const sendData=()=>{
                     }
                 }
 
-                resultdiv.append(resDiv)
+                resultdiv   .append(resDiv)
             })
             
 

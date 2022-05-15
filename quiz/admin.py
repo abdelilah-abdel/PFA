@@ -1,7 +1,8 @@
-from django import http
 from django.contrib import admin
 from .models import Quiz , questions , category , reponse , result 
-# Register your models here.
+
+
+
 
 class ReponseInline(admin.TabularInline):
     model = reponse

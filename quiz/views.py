@@ -9,15 +9,22 @@ from django.contrib.auth.decorators import login_required # Forcing the user to 
 from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse
+from django.http import Http404
+
+#Global counter for visiters to limit the number of quizzes they can play
+visits = 0
+
+
+
 
 
 #landing page
-def lading(request):
+def landing(request):
 
     
     return render(request, "quiz/landing.html" )
 
-
+    
 
 # home page
 def index(request):
@@ -31,6 +38,7 @@ def index(request):
 
 # Login page
 def loginPage(request):
+    global visits
     categorie = category.objects.all()
 
     page = 'login'
@@ -55,7 +63,7 @@ def loginPage(request):
 
         else:
             messages.error(request,'Incorrect username or password')  
-    context = {'page':page , 'category':categorie}
+    context = {'page':page , 'category':categorie , 'visits':visits}
     return render(request,"quiz/login_register.html",context)
 
 #user logout
@@ -78,7 +86,7 @@ def registerPage(request):
             user.username = user.username.lower() #we lower the user's username
             user.save() #we save the user
             login(request,user) #we log the user in
-            return redirect('index') #we redirect the user to the home page
+            return redirect('form') #we redirect the user to the home page
              
         else:
             messages.error(request, 'An error occurred during your registration. Please try again.')        
@@ -87,10 +95,14 @@ def registerPage(request):
 
 def userProfile(request,pk):
     categorie = category.objects.all()
-
-    user = User.objects.get(id=pk)
-    context = {'user':user , 'category':categorie}
-    return render(request,"quiz/profile.html",context)
+    results = result.objects.all()
+    user = User.objects.get(username=pk)
+    context = {'user':user , 'category':categorie , 'results': results , 'range':range( 0,5 ) }
+    if request.method == 'GET':
+        if not request.user.is_authenticated:
+            return redirect ('login')
+        else:
+            return render(request,"quiz/profile.html",context)
 
 
 
@@ -128,16 +140,23 @@ def allquizzes(request):
 
 
 # page with each quiz
-def quiz(request,pk):
 
-    quizs = Quiz.objects.get(id=pk)
+def quiz(request,pk):
+    global visits
+    if request.method== 'GET':
+        visits+=1
+        if not request.user.is_authenticated:
+            if visits > 3:
+                return redirect('login')
+
+    quizs = Quiz.objects.get(name=pk)
     context = {'quiz':quizs }
     return render(request , "quiz/quiz.html" , context)
 
 
 #Acquiring the quiz data (questios/answers) to display it on the page
 def quiz_data(request,pk):
-    quiz = Quiz.objects.get(id=pk)
+    quiz = Quiz.objects.get(name=pk)
     questions = []
     for q in quiz.get_questions():
         answers=[]
@@ -188,12 +207,12 @@ def save_quiz(request, pk):
        
 
         user = request.user
-        quiz=Quiz.objects.get(id = pk)
+        quiz=Quiz.objects.get(name = pk)
         
         score = 0
         results = []
         correct_answer = None
-        Q_counter=0
+
 
         for q in questions_:
             selected_Answer = request.POST.get(q.description)
@@ -223,5 +242,20 @@ def save_quiz(request, pk):
   
 
 
+#Form page
+def form(request , pk):
+    user = User.objects.get(username=pk)
+    return render(request , "quiz/forms.html", {'user':user}) 
 
 
+#Quiz History page
+def history(request,pk):
+    results = result.objects.all()
+    user = User.objects.get(username=pk)
+    context = {'user':user, "results":results }
+    return render(request,"quiz/history.html",context)
+
+#Editing user's informations page
+def edit(request,pk):
+    user = User.objects.get(username=pk)
+    return render(request,"quiz/edit.html",{'user':user })

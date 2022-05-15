@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <head>
-    <style>
-    
-    </style>
-  </head>
-
-
-  
+{% block content%}
 
 
 <div class="container">
@@ -118,55 +110,6 @@
                       programming - history - etc 
                     </div>
                   </div>
-              
-
-                  <div class="row">
-                    <div class="col-sm-12">
-                     
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- playing history -->
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                      
-                      <h5 class="d-flex align-items-center mb-3">You recently played :</h5>
-                        {%for r in results%}
-                          {%if request.user == r.user%}
-                          {% if forloop.revcounter0 in range %}
-                            <p> {{r.quiz}} / Score: {{r.score}} </p>
-                              <div class="progress mb-3" style="height: 5px">
-                                {% if r.score <= 3 %}
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 10%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
-                                {% elif r.score > 3 and r.score <= 7 %}
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 50%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
-                                {%else%}
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 90%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
-                                {%endif%}
-                              </div>
-                          {%endif%}
-                          {%endif%}
-                        {%endfor%}
-                    </div>
-                  </div>
-                </div>
-              <!--  -->
 
 
-            </div>
-          </div>
-
-        </div>
-
-
-  </div>
-
-
-            
-              
-            
-          
-{% endblock %}
+{%endblock%}

@@ -11,7 +11,7 @@
                 <h5>
                     {% if category.id == q.category.id %} 
                     
-                        {{q.id}} -- <a href=" {% url 'quiz' q.id %} "> {{q.name}} </a>
+                        {{q.id}} -- <a href=" {% url 'quiz' q.name %} "> {{q.name}} </a>
                     {% endif %}
 
                 </h5>

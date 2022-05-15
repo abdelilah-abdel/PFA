@@ -24,14 +24,13 @@ transition: all 200ms ease-in;
 display: none;
 } */
 
-    
 
   </style>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg" >
     <div class="container" >
-      <a href="/"> <img src="https://cdn.discordapp.com/attachments/756290553724928051/970838035585445939/quizzybox.png"width="45" height="45"  alt=""></a>
+      <a href="/"> <img src="https://cdn.discordapp.com/attachments/917028907419570176/972223409868112002/quizzy_box_3.png"width="170" height="50"  alt=""></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -58,9 +57,9 @@ display: none;
               <li><a href="/categories/"> All categories</a> </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link disabled">Disabled</a>
-          </li>
+          </li> -->
         </ul>
         <form class="d-flex"  method="GET" action="{% url 'search' %}?q={{c.name}}">
           <input class="form-control me-2" type="search" name="q" placeholder="Search for categories or quizzes" size="28%"  aria-label="Search">
@@ -95,7 +94,7 @@ display: none;
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
 
             <!-- Profile link -->
-            <li><a class="dropdown-item" href="{% url 'profile' user.id %}">
+            <li><a class="dropdown-item" href="{% url 'profile' user.username %}">
               <!-- Profile icon -->
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge" viewBox="0 0 16 16">
                 <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

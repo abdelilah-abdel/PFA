@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
 
-    path('ss' , views.lading , name ="landing"),
+    path('ss' , views.landing , name ="landing"),
 
     path('', views.index ,name="index" ),
 
@@ -29,7 +29,10 @@ urlpatterns = [
 
     path('quiz/<str:pk>/data/' , views.quiz_data , name="quiz-data"),
 
-    path('quiz/<str:pk>/save/' ,views.save_quiz , name="quiz-save" )
+    path('quiz/<str:pk>/save/' ,views.save_quiz , name="quiz-save" ),
 
+    path('profile/<str:pk>/Edit/' , views.edit , name='edit'),
+
+    path('profile/<str:pk>/history', views.history , name='history' )
     
 ]

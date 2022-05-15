@@ -59,7 +59,7 @@ class reponse(models.Model):
 class result(models.Model):
     quiz = models.ForeignKey(Quiz , on_delete=models.CASCADE )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.FloatField()
+    score = models.IntegerField()
     
     def __str__(self) :
         return f"user : {self.user} | quiz: {self.quiz} | score: {self.score}"

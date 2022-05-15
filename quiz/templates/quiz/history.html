@@ -1,28 +1,22 @@
 {% extends 'base.html' %}
 
-{% block content %}
-  <head>
-    <style>
-    
-    </style>
-  </head>
-
-
-  
+{% block content%}
 
 
 <div class="container">
   
 
     <div class="main-body">
-    
-      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item active">Profile</li>
-         
-        </ol>
-      </nav>
+         <!-- Breadcrumb -->
+         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="{%url 'profile' user.username%}">Profile</a></li>
+              <li class="breadcrumb-item active" aria-current="page"> History </li>
+            </ol>
+          </nav>
+          <!-- /Breadcrumb -->
+
     
           <div class="row gutters-sm">
             <div class="col-md-4 mb-3">
@@ -34,7 +28,7 @@
                       <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                     </svg>
                     <div class="mt-3">
-                      <h4> <a href=" {%url 'profile' user.username%} "></a>{{request.user.username}} </h4>
+                      <h4> {{request.user.username}}</h4>
                       <p class="text-secondary mb-1">quizYbox player</p>
      
                     </div>
@@ -50,7 +44,7 @@
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                     </svg> Edit </h6>
                     
-                    <span class="text-secondary"> <a href="{% url 'form' user.username %}"> Edit informations</a></span>
+                    <span class="text-secondary"> <a href="{% url 'form' user.username%}"> Edit informations</a></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
@@ -73,70 +67,12 @@
 
             <div class="col-md-8">
               <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Full Name</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{user.first_name}} {{user.last_name}}  
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      {{user.email}}
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Age</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      (20) 
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Birth Date</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      11/05/2000
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">interests</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      programming - history - etc 
-                    </div>
-                  </div>
-              
-
-                  <div class="row">
-                    <div class="col-sm-12">
-                     
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- playing history -->
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card">
+                <div class="card">
                     <div class="card-body">
                       
-                      <h5 class="d-flex align-items-center mb-3">You recently played :</h5>
+                      <h5 class="d-flex align-items-center mb-3 " >All quizzes you played :</h5>
                         {%for r in results%}
                           {%if request.user == r.user%}
-                          {% if forloop.revcounter0 in range %}
                             <p> {{r.quiz}} / Score: {{r.score}} </p>
                               <div class="progress mb-3" style="height: 5px">
                                 {% if r.score <= 3 %}
@@ -148,13 +84,21 @@
                                 {%endif%}
                               </div>
                           {%endif%}
-                          {%endif%}
                         {%endfor%}
+                    </div> 
+                    </div>
+                  </div>
+              
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                     
                     </div>
                   </div>
                 </div>
-              <!--  -->
-
+              </div>
+              
+              
 
             </div>
           </div>
@@ -165,8 +109,28 @@
   </div>
 
 
-            
-              
-            
-          
-{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock%}
