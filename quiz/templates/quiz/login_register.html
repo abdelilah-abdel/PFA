@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+
+{%load socialaccount%}
+{%providers_media_js%}
+
+
 {% block content %}
 <head>
 
@@ -38,7 +43,7 @@
 
   <main class="form-signin">
     {% if visits > 3 %}
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-primary" role="alert">
       Please log in to your account or create one to keep playing
     </div>
     {% endif %}
@@ -46,18 +51,24 @@
       <form method="POST" action="">
       {% csrf_token %}
         <img class="mb-4" src="https://cdn.discordapp.com/attachments/756290553724928051/970833270990307358/quizzybox.png" alt="" width="100" height="100">
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 fw-normal text-light">Please sign in</h1>
     
         <div class="form-floating">
           <input type="text" name="username" class="form-control"  id="floatingInput" placeholder="@user">
           <label for="floatingInput">Username</label>
         </div>
+        
         <div class="form-floating">
           <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
           <label for="floatingPassword">Password</label>
         </div>
     
-        <button class="w-100 btn btn-lg btn-success" type="submit" value="login">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" value="login">Sign in</button>
+         <a href="{% provider_login_url "facebook" metho="oauth2" %}">connect with facebook</a><br> 
+         <a href="{% provider_login_url 'google' metho="oauth2" %}?next=/">Login with Google</a><br> 
+         <a href="{% provider_login_url 'github' %}">Authenticate with GitHub</a>
+
+
         <p class="mt-5 mb-3 text-muted">haven't signed up yet ?</p>
         <a href="{% url 'register' %}">Sign up</a>
       </form>
@@ -83,5 +94,3 @@
 
 
 {% endblock %}
-
-

@@ -2,14 +2,14 @@
 
 {% block content %}
 <div>
-<h1>Results found for "{{q}}" </h1>
+<h1 class="text-light">Results found for "{{q}}" </h1>
 </div>
 
 
 {% for q in quiz %}
                 
                     <div>
-                        <h5>
+                        <h5 >
                                 <a href=" {% url 'quiz' q.name %} "> {{q.name}} </a>
                         </h5>
                     </div>

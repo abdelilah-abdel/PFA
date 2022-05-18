@@ -86,7 +86,7 @@ def registerPage(request):
             user.username = user.username.lower() #we lower the user's username
             user.save() #we save the user
             login(request,user) #we log the user in
-            return redirect('form') #we redirect the user to the home page
+            return redirect('form') #redirecting the user to the form page to either complete his registration or skip it for later
              
         else:
             messages.error(request, 'An error occurred during your registration. Please try again.')        
@@ -243,9 +243,9 @@ def save_quiz(request, pk):
 
 
 #Form page
-def form(request , pk):
-    user = User.objects.get(username=pk)
-    return render(request , "quiz/forms.html", {'user':user}) 
+def form(request ):
+    
+    return render(request , "quiz/forms.html") 
 
 
 #Quiz History page
@@ -258,4 +258,4 @@ def history(request,pk):
 #Editing user's informations page
 def edit(request,pk):
     user = User.objects.get(username=pk)
-    return render(request,"quiz/edit.html",{'user':user })
+    return render(request,"quiz/Edit.html",{'user':user })

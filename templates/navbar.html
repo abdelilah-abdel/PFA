@@ -6,6 +6,8 @@
     a{
       text-decoration: none;
     }
+
+      
 /* 
       #navbarDropdownMenuLink:hover {
     display: block;
@@ -28,15 +30,19 @@ display: none;
   </style>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg" >
+<nav class="navbar navbar-expand-lg navbar-dark " >
     <div class="container" >
-      <a href="/"> <img src="https://cdn.discordapp.com/attachments/917028907419570176/972223409868112002/quizzy_box_3.png"width="170" height="50"  alt=""></a>
+      <a href="/"> <svg width="28" height="32" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a"><stop stop-color="#00BFFB" offset="0%"/><stop stop-color="#0270D7" offset="100%"/></linearGradient><linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="b"><stop stop-color="#1F232A" stop-opacity=".48" offset="0%"/><stop stop-color="#1F2329" stop-opacity="0" offset="100%"/></linearGradient><linearGradient x1="87.665%" y1="103.739%" x2="-3.169%" y2="38.807%" id="c"><stop stop-color="#FFF" stop-opacity="0" offset="0%"/><stop stop-color="#FFF" stop-opacity=".64" offset="100%"/></linearGradient><linearGradient x1="-14.104%" y1="111.262%" x2="109.871%" y2="26.355%" id="d"><stop stop-color="#0270D7" offset="0%"/><stop stop-color="#0270D7" stop-opacity="0" offset="100%"/></linearGradient></defs><g fill="none" fill-rule="evenodd"><path fill="url(#a)" transform="rotate(90 14 16)" d="M6 2l-8 13.999L6 30h16l8-14.001L22 2z"/><path fill="url(#b)" d="M14 0v32L0 24V8z"/><path fill="url(#c)" d="M28 24L0 8l14.001-8L28 8z"/><path fill-opacity=".48" fill="url(#d)" style="mix-blend-mode:multiply" d="M28 8L0 23.978V8l14.001-8L28 8z"/></g></svg></a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">QuizYbox</a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href=" {% url 'quizzes' %} ">All quizzes</a>
           </li>
@@ -63,7 +69,7 @@ display: none;
         </ul>
         <form class="d-flex"  method="GET" action="{% url 'search' %}?q={{c.name}}">
           <input class="form-control me-2" type="search" name="q" placeholder="Search for categories or quizzes" size="28%"  aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">
+          <button class="btn btn-outline-primary" type="submit">
             <!-- Search icon -->
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -128,12 +134,12 @@ display: none;
         <div class="text-end">
           
           <!-- log in button -->
-          <button type="button" class="btn btn-outline-success me-2" >
+          <button type="button" class="btn btn-outline-primary me-2" >
             <a href="{% url 'login' %}" class="link-dark" style="color:white" >Sign-in</a>
           </button>
 
           <!-- registration button  -->
-          <button type="button"  class="btn btn-success">
+          <button type="button"  class="btn btn-primary">
            <a href="{% url 'register' %}" class="link-primary" style="color:white"> Sign-up</a>
           </button>
         </div>
@@ -143,8 +149,3 @@ display: none;
     </div>
   </nav>
 
-
-
-
-<!-- -------------------------------------------- -->
-    

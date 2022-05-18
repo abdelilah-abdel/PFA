@@ -31,7 +31,9 @@ urlpatterns = [
 
     path('quiz/<str:pk>/save/' ,views.save_quiz , name="quiz-save" ),
 
-    path('profile/<str:pk>/Edit/' , views.edit , name='edit'),
+    path('profile/<str:pk>/edit' , views.edit , name='edit'),
+   
+    path('form/',views.form, name="form"),
 
     path('profile/<str:pk>/history', views.history , name='history' )
     
