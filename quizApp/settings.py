@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quiz.apps.QuizConfig',
-
-
-
-     #abdel
+#abdel
+    'rest_framework',
+     
     'social_django',
 
     'django.contrib.sites',
@@ -81,7 +80,11 @@ AUTHENTICATION_BACKENDS = [
 
 ]
 
+#abdel
 
+REST_FRAMEWORK = {
+
+}
 
 
 
@@ -201,3 +204,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 LOGIN_REDIRECT_URL ="/"
+

@@ -10,6 +10,12 @@ class category(models.Model):
 
     name = models.CharField(max_length=30)
     images = models.CharField(max_length=2048 , null=True)
+   #abdel
+    descreption = models.CharField(max_length=50, null=True)
+    backgroundimg = models.IntegerField(null=True) 
+    img_id = models.IntegerField(null=True)
+    #  user_rating = forms.IntegerField(widget=Stars)
+
 
     def __str__(self) :
         return self.name
@@ -17,6 +23,7 @@ class category(models.Model):
 
 
 class Quiz(models.Model):
+    
     name = models.CharField(max_length=30)
     category = models.ForeignKey(category , on_delete=models.SET_NULL , null=True )
     duration = models.IntegerField(null=True,help_text="Time in minutes")
@@ -24,6 +31,8 @@ class Quiz(models.Model):
     updated=models.DateTimeField(auto_now=True)
     file = models.FileField(blank=True)
     
+    # user_rating = forms.IntegerField(widget=Stars)
+
     def __str__(self) :
         return f"{self.name}--{self.category}"
         

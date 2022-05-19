@@ -1,3 +1,18 @@
+
+#-------------------------------------------------------------------
+from quiz.serializers import CategorySerializer, QuizSerializer, ReponsesSerializer, ResultSerializer
+from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
+from rest_framework import authentication, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import viewsets
+
+from rest_framework import status, filters
+from rest_framework.response import Response
+from rest_framework import status
+
+
 from django import forms  # For the authentification form
 from django.shortcuts import redirect, render  # For rendering (displaying) our content
 from .models import Quiz , category , questions, reponse , result  # To acquire the data from our models, then render it
@@ -10,6 +25,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse
 from django.http import Http404
+
 
 #Global counter for visiters to limit the number of quizzes they can play
 visits = 0
@@ -258,4 +274,219 @@ def history(request,pk):
 #Editing user's informations page
 def edit(request,pk):
     user = User.objects.get(username=pk)
-    return render(request,"quiz/Edit.html",{'user':user })
+    return render(request, "quiz/Edit.html", {'user': user})
+
+
+#abdel
+#-----------------------OUR_API---------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------
+
+
+@api_view(['GET', 'POST'])
+def QUIZ_LIST_API(request):
+    #GET
+    if request.method == 'GET':
+        quiz = Quiz.objects.all()
+        serializer = QuizSerializer(quiz, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+         serializer = QuizSerializer(data=request.data)
+         if serializer.is_valid():
+               serializer.save()
+               return Response(serializer.data, status.HTTP_201_CREATED)
+         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def QUIZ_LIST_API_PK(request, pk):
+   # good use for any querys
+
+    try:
+        quiz = Quiz.objects.filter(id=pk)
+    except Quiz.DoesNotExist:
+        return Response (status=status.HTTP_404_NOT_FOUND)
+ 
+    print(quiz)
+
+    #GET
+    if request.method == 'GET':
+        serializer = QuizSerializer(quiz, many=True)
+        return Response(serializer.data)
+
+    #PUT : UPDATE
+    elif request.method == 'PUT':
+        serializer = QuizSerializer(quiz, data= request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors)
+
+    if request == 'DELETE':
+        quiz.delete()
+        return Response("msg")
+
+    
+
+    #return Response("the object is deleted", status=status.HTTP_204_NO_CONTENT)
+
+
+#----------------------------------CATEGORY API ---------------------------------------------------------------------
+
+
+@api_view(['GET', 'POST'])
+def Category_LIST_API(request):
+     #GET
+    if request.method == 'GET':
+         catg = category.objects.all()
+         serializer = CategorySerializer(catg, many=True)
+         return Response(serializer.data)
+
+    elif request.method == 'POST':
+           serializer = CategorySerializer(data = request.data)
+           if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status.HTTP_201_CREATED)
+           return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET', 'PUT','DELETE'])
+
+def category_LIST_API_PK(request, pk):
+   # good use for any querys
+
+    try :
+     catg = category.objects.filter(id=pk)
+    except category.DoesNotExist:
+        return Response (status= status.HTTP_404_NOT_FOUND)
+
+
+    #GET
+    if request.method == 'GET':
+        serializer = CategorySerializer(catg, many=True)
+        return Response(serializer.data)
+
+
+    #PUT : UPDATE
+    elif request.method == 'PUT':
+        serializer = CategorySerializer(catg, data = request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors)
+
+    if request == 'DELETE':
+        catg.delete()
+        return Response("message here", status=status.HTTP_204_NO_CONTENT)      
+
+
+
+#-------------------------------------------------------------------------------------------
+
+
+@api_view(['GET','POST'])
+def Response_LIST_API(request):
+   # good use for any querys
+    #GET
+    if request.method == 'GET':
+        resp = reponse.objects.all()
+        serializer = ReponsesSerializer(resp, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+         serializer = ReponsesSerializer(data=request.data)
+         if serializer.is_valid():
+               serializer.save()
+               return Response(serializer.data, status.HTTP_201_CREATED)
+         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Response_LIST_API_PK(request, pk):
+   # good use for any querys
+
+    try:
+     resp = reponse.objects.filter(id=pk)
+    except reponse.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    #GET
+    if request.method == 'GET':
+        serializer = ReponsesSerializer(resp, many=True)
+        return Response(serializer.data)
+
+    #PUT : UPDATE
+    elif request.method == 'PUT':
+         serializer = ReponsesSerializer(resp, data=request.data)
+
+         if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+         return Response(serializer.errors)
+
+    if request == 'DELETE':
+        resp.delete()
+        return Response("deleted succefuly ")
+
+
+    
+
+
+
+#--------------------------------------------------------------------------------
+
+
+@api_view(['GET', 'POST'])
+def Result_LIST_API(request):
+     #GET
+    if request.method == 'GET':
+         reslt = result.objects.all()
+         serializer = ResultSerializer(reslt, many=True)
+         return Response(serializer.data)
+
+    elif request.method == 'POST':
+         serializer = ResultSerializer(data=request.data)
+
+         if serializer.is_valid():
+               serializer.save()
+               return Response(serializer.data, status.HTTP_201_CREATED)
+         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT','DELETE'])
+def Result_LIST_API_PK(request, pk):
+    # good use for any querys
+
+    try:
+     rslt = result.objects.filter(id=pk)
+    except result.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    #GET
+    if request.method == 'GET':
+        serializer = ResultSerializer(rslt, many=True)
+        return Response(serializer.data)
+
+    #PUT : UPDATE
+    elif request.method == 'PUT':
+        serializer = ResultSerializer(rslt, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+        return Response(serializer.errors)
+
+    if request == 'DELETE':
+        rslt.delete()
+        return Response("deleted succefuly ")
