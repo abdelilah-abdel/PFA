@@ -68,13 +68,13 @@ def loginPage(request):
             user = User.objects.get(username=username) 
         except:
             messages.error(request,'User does not exist')  
-
+  
     #if the user exists:
         user = authenticate(request , username=username , password=password) #We verify his login infos 
     
     #if the infos are correct we log the user in and create a session:
         if user is not None:
-            login(request , user)
+            login(request , user , backend='django.contrib.auth.backends.ModelBackend' )
             return redirect('index')
 
         else:
@@ -84,12 +84,14 @@ def loginPage(request):
 
 #user logout
 def logoutUser(request):
+    global visits
+    visits=0 #Resetting the visits counter after each logout 
     logout(request)
     return redirect('index')
 
 
 # Registration page
-def registerPage(request):
+def registerPage(request ):
     categorie = category.objects.all()
 
     form = UserCreationForm() #using the django generated registration form
@@ -101,7 +103,7 @@ def registerPage(request):
             user = form.save(commit=False) 
             user.username = user.username.lower() #we lower the user's username
             user.save() #we save the user
-            login(request,user) #we log the user in
+            login(request,user, backend='django.contrib.auth.backends.ModelBackend' ) #we log the user in
             return redirect('form') #redirecting the user to the form page to either complete his registration or skip it for later
              
         else:

@@ -19,7 +19,6 @@ urlpatterns = [
     path('API_PK/RES/<str:pk>', views.Result_LIST_API_PK),
 
 
-
     path('ss' , views.landing , name ="landing"),
 
     path('', views.index ,name="index" ),
