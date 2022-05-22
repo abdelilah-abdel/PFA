@@ -21,7 +21,7 @@
     
 </head>
 {% if request.user.is_authenticated %}
-<div class="alert alert-success" role="alert" >
+<div class="alert alert-primary" role="alert" >
    <h5> Hello , {{user}} </h5>
 </div>
 {% endif %}
@@ -41,9 +41,10 @@
                     </div>
                     {% endif %} 
                {%endfor%}
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-            <a href=" {% url 'quizzes' %} " class="link-secondary" > browse all quizzes </a>   
-          </button>
+            <a href=" {% url 'quizzes' %} " class="link-outline-secondary" >
+            <button type="button" class="btn btn-outline-secondary text-light btn-lg px-4">
+            browse all quizzes    
+            </button></a>
         </div>
 </div>
 
